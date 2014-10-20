@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>ea4e5c3d-76a1-4519-8492-28387a2023e7</ProjectGuid>
+    <ProjectGuid>{F9DF6C4A-6039-4234-80B3-A3EB4F4CDF59}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Moonshine.Aggregator.Tests</RootNamespace>
