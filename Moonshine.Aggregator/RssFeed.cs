@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Moonshine.Aggregator
 {
-    public class Class1
+    public class RssFeed
     {
     }
 }
