@@ -9,18 +9,23 @@ namespace Moonshine.Aggregator
     public class RssFeed
     {
         public string Title { get; set; }
-        public string Link { get; set; }
+        public Uri Link { get; set; }
         public string Description { get; set; }
         public DateTime PubDate { get; set; }
-        public IEnumerable<RssItem> RssItems { get; set; }
+        public List<RssItem> RssItems { get; set; }
 
-        public RssFeed(string title, string link, string description, DateTime pubDate)
+        public RssFeed(string title, Uri link, string description, DateTime pubDate)
         {
             Title = title;
             Link = link;
             Description = description;
             PubDate = pubDate;
             RssItems = new List<RssItem>();
+        }
+
+        public RssFeed()
+        {
+
         }
     }
 }
