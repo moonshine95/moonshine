@@ -16,7 +16,6 @@ namespace Moonshine.Aggregator
             WebResponse response = request.GetResponse();
 
             var xmlDoc = new XmlDocument();
-
             try
             {
                 xmlDoc.Load(response.GetResponseStream());
@@ -40,9 +39,12 @@ namespace Moonshine.Aggregator
                     Uri imageUrl = null;
 
                     XmlElement enclosureElement = item["enclosure"];
-                    if (enclosureElement.GetAttribute("type").Equals("image/jpeg"))
+                    if (enclosureElement != null)
                     {
-                        imageUrl = new Uri(enclosureElement.GetAttribute("url"));
+                        if (enclosureElement.GetAttribute("type").Equals("image/jpeg"))
+                        {
+                            imageUrl = new Uri(enclosureElement.GetAttribute("url"));
+                        }
                     }
 
                     var rssItem = new RssItem()

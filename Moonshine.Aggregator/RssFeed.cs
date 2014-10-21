@@ -25,7 +25,7 @@ namespace Moonshine.Aggregator
 
         public RssFeed()
         {
-
+            RssItems = new List<RssItem>();
         }
     }
 }
