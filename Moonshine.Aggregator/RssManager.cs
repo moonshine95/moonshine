@@ -19,7 +19,10 @@ namespace Moonshine.Aggregator
             try
             {
                 xmlDoc.Load(response.GetResponseStream());
-                Console.WriteLine(xmlDoc.InnerXml);
+                foreach (XmlNode node in xmlDoc.SelectNodes("//*"))
+                {
+                    Console.WriteLine(node.Name);
+                }
             }
             catch
             {
