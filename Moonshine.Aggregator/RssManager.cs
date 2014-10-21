@@ -10,7 +10,7 @@ namespace Moonshine.Aggregator
 {
     public static class RssManager
     {
-        public static RssFeed Read(Uri uri)
+        public static void Read(Uri uri)
         {
             WebRequest request = WebRequest.Create(uri);
             WebResponse response = request.GetResponse();
@@ -27,8 +27,6 @@ namespace Moonshine.Aggregator
             catch
             {
             }
-
-            return new RssFeed();
         }
     }
 }
