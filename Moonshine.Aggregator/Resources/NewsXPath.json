@@ -1,0 +1,3 @@
+﻿{
+	"http://www.lesechos.fr": "//p[@itemprop=\"articleBody\"]"
+}

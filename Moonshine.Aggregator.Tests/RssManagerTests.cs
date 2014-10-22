@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Web.Script.Serialization;
 using System.Collections.Generic;
+using Moonshine.Aggregator.Rss;
+using Moonshine.Aggregator.News;
 
 namespace Moonshine.Aggregator.Tests
 {
@@ -10,21 +12,22 @@ namespace Moonshine.Aggregator.Tests
     public class RssManagerTests
     {
         [TestMethod]
-        public void Verify_Read_Method()
+        public void Verify_Read_Rss_Not_Null()
         {
-            var path = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Moonshine.Aggregator\\data\\rssFeeds.json");
-            using (StreamReader stream = new StreamReader(path))
-            {
-                string json = stream.ReadToEnd();
+            Assert.IsNotNull(RssManager.Read(new Uri("http://syndication.lesechos.fr/rss/rss_politique.xml")));
+        }
 
-                var deserializer = new JavaScriptSerializer();
-                List<string> listOfRssFeeds = deserializer.Deserialize<List<string>>(json);
+        [TestMethod]
+        public void Verify_Read_Rss_Null()
+        {
+            Assert.IsNull(RssManager.Read(new Uri("http://www.google.fr")));
+        }
 
-                foreach (var url in listOfRssFeeds)
-                {
-                    Assert.IsNotNull(RssManager.Read(new Uri(url)));
-                }
-            }
+        [TestMethod]
+        public void Verify_Generate_News()
+        {
+            RssFeed rssFeed = RssManager.Read(new Uri("http://syndication.lesechos.fr/rss/rss_politique.xml"));
+            NewsManager.generateNews(rssFeed, rssFeed.RssItems[0]);
         }
     }
 }
