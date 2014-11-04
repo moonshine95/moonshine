@@ -8,22 +8,47 @@ using System.Threading.Tasks;
 using HtmlAgilityPack;
 using Moonshine.Aggregator.Rss;
 using System.Web.Script.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Drawing;
 
 namespace Moonshine.Aggregator.News
 {
     public static class NewsManager
     {
-        public static void generateNews(RssFeed rssFeed, RssItem rssItem)
+        public static News CreateNews(RssItem rssItem, string xpath)
         {
             var url = rssItem.Link.ToString();
 
             HtmlWeb client = new HtmlWeb();
             HtmlDocument htmlDoc = client.Load(url);
+            // string xpath = findNewsXPath(rssFeed);
+            var newsContent = htmlDoc.DocumentNode.SelectSingleNode(xpath).InnerHtml;
 
-            string xpath = findNewsXPath(rssFeed);
-            var newsNode = htmlDoc.DocumentNode.SelectSingleNode(xpath);
+            Image image = null;
+            if (rssItem.ImageUrl != null)
+            {
+                WebClient webClient = new WebClient();
+                byte[] bytes = webClient.DownloadData(rssItem.ImageUrl);
+                MemoryStream stream = new MemoryStream(bytes);
+                image = Image.FromStream(stream);
+            }
 
-            Console.WriteLine(newsNode.InnerHtml);
+            var news = new News()
+            {
+                Title = rssItem.Title,
+                Content = newsContent,
+                Category = Category.Economy,
+                Image = image
+            };
+
+            return news;
+            /*
+            FileStream file = File.Create("output.bin");
+            var formatter = new BinaryFormatter();
+            formatter.Serialize(file, news);
+            file.Close();
+
+            Console.WriteLine(newsContent);*/
         }
 
         private static string findNewsXPath(RssFeed rssFeed)
