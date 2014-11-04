@@ -21,7 +21,7 @@ namespace Moonshine.Aggregator
             log.WriteLine("<ul>");
             log.WriteLine("<li><u>{0}</u></li>", feed.Title);
             log.WriteLine("<li><i>{0}</i></li>", feed.Description);
-            log.WriteLine("<li>{0}</li>", feed.Link);
+            log.WriteLine("<li><a href=\"{0}\">{0}</a></li>", feed.Link);
             log.WriteLine("<li>{0}</li>", feed.PubDate);
             log.WriteLine("</ul>");
             foreach (var item in feed.RssItems)
@@ -31,7 +31,7 @@ namespace Moonshine.Aggregator
                 log.WriteLine("<ul>");
                 log.WriteLine("<li><u>{0}</u></li>", item.Title);
                 log.WriteLine("<li><i>{0}</i></li>", item.Description);
-                log.WriteLine("<li>{0}</li>", item.Link);
+                log.WriteLine("<li><a href=\"{0}\">{0}</a></li>", item.Link);
                 log.WriteLine("<li>{0}</li>", item.PubDate);
                 log.WriteLine("<li>{0}</li>", item.ImageUrl);
                 log.WriteLine("</ul>");
