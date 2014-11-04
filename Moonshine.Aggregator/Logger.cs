@@ -41,7 +41,7 @@ namespace Moonshine.Aggregator
                 log.WriteLine("<ul>");
                 log.WriteLine("<li><u>{0}</u></li>", news.Title);
                 log.WriteLine("<li>{0}</li>", news.Category);
-                log.WriteLine("<li>{0}</li>", news.Content);
+                log.WriteLine("<li style=\"border:1px solid black;padding:1%\">{0}</li>", news.Content);
                 log.WriteLine("</ul>");
                 log.WriteLine(" </blockquote> ");
                 //log.WriteLine("{0}", news.Image);
