@@ -11,7 +11,7 @@ namespace Moonshine.Aggregator
 {
     public static class Logger
     {
-        public static void Log(RssFeed feed, string source)
+        public static void Log(RssFeed feed, string source, string xpath)
         {
             StreamWriter log = new StreamWriter(String.Format("{0}.html", source));
             log.WriteLine("<html>");
@@ -37,7 +37,7 @@ namespace Moonshine.Aggregator
                 log.WriteLine("</ul>");
                 log.WriteLine(" <blockquote> ");
                 log.WriteLine("<h3> ARTICLE </h3>");
-                var news = NewsManager.CreateNews(item, "//p[@itemprop=\"articleBody\"]");
+                var news = NewsManager.CreateNews(item, xpath);
                 log.WriteLine("<ul>");
                 log.WriteLine("<li><u>{0}</u></li>", news.Title);
                 log.WriteLine("<li>{0}</li>", news.Category);

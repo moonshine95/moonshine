@@ -17,7 +17,7 @@ namespace Moonshine.Aggregator.Tests
             // Assert.IsNotNull(RssManager.Read(new Uri("http://syndication.lesechos.fr/rss/rss_politique.xml")));
 
             var feed = RssManager.Read(new Uri("http://syndication.lesechos.fr/rss/rss_politique.xml"));
-            Logger.Log(feed, "LES ECHOS - Politique");
+            Logger.Log(feed, "LES ECHOS - Politique", "//div[@class=\"contenu_article\"]");
         }
 
         [TestMethod]
