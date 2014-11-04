@@ -18,6 +18,15 @@ namespace Moonshine.Aggregator.Tests
 
             var feed = RssManager.Read(new Uri("http://syndication.lesechos.fr/rss/rss_politique.xml"));
             Logger.Log(feed, "LES ECHOS - Politique", "//div[@class=\"contenu_article\"]");
+
+            var feed2 = RssManager.Read(new Uri("http://syndication.lesechos.fr/rss/rss_france.xml"));
+            Logger.Log(feed2, "LES ECHOS - Economie", "//div[@class=\"contenu_article\"]");
+
+            var feed3 = RssManager.Read(new Uri("http://syndication.lesechos.fr/rss/rss_monde.xml"));
+            Logger.Log(feed3, "LES ECHOS - Monde", "//div[@class=\"contenu_article\"]");
+
+            var feed4 = RssManager.Read(new Uri("http://syndication.lesechos.fr/rss/rss_tech_medias.xml"));
+            Logger.Log(feed4, "LES ECHOS - Medias", "//div[@class=\"contenu_article\"]");
         }
 
         [TestMethod]
