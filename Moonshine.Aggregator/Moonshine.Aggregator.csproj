@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logger.cs" />
     <Compile Include="News\Category.cs" />
     <Compile Include="News\News.cs" />
     <Compile Include="News\NewsManager.cs" />
