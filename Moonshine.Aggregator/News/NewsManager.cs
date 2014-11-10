@@ -25,16 +25,23 @@ namespace Moonshine.Aggregator.News
             var newsHtml = htmlDoc.DocumentNode.SelectSingleNode(rules.ArticleXpath);
             foreach (var xpath in rules.XpathToRemove)
             {
-                foreach (var node in newsHtml.SelectNodes(xpath))
+                try
                 {
-                    try
+
+                    foreach (var node in newsHtml.SelectNodes(xpath))
                     {
-                        Console.WriteLine(node.InnerHtml);
-                        node.Remove();
+                        try
+                        {
+                            Console.WriteLine(node.InnerHtml);
+                            node.Remove();
+                        }
+                        catch
+                        {
+                        }
                     }
-                    catch
-                    {
-                    }
+                }
+                catch
+                {
                 }
             }
             var newsContent = newsHtml.InnerHtml;
