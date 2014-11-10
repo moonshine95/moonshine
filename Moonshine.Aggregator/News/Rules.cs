@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,29 +9,74 @@ namespace Moonshine.Aggregator.News
 {
     public class Rules
     {
-        private List<string> _xpathsToRemove;
-        private string _articleXpath;
+        private List<string> XpathsToRemove { get; set; }
+        private Dictionary<string, string> XpathsToTransform { get; set; }
+        private string ArticleXpath { get; set; }
 
-        public string ArticleXpath 
+        public Rules(string articleXpath, List<string> xpathToRemove, Dictionary<string, string> xpathsToTransform)
         {
-            get
-            {
-                return _articleXpath;
-            }        
+            ArticleXpath = articleXpath;
+            XpathsToRemove = xpathToRemove;
+            XpathsToTransform = xpathsToTransform;
         }
 
-        public List<string> XpathToRemove
+        public HtmlNode ApplyTo(HtmlNode node)
         {
-            get
+            // Select article node
+            var articleNode = node.SelectSingleNode(ArticleXpath);
+
+            // Delete node
+            foreach (var xpathToRemove in XpathsToRemove)
             {
-                return _xpathsToRemove;
+                try
+                {
+                    foreach (var nodeToRemove in articleNode.SelectNodes(xpathToRemove))
+                    {
+                        try
+                        {
+                            Console.WriteLine(nodeToRemove.InnerHtml);
+                            nodeToRemove.Remove();
+                        }
+                        catch
+                        {
+                        }
+                    }
+                }
+                catch
+                {
+                }
             }
-        }
 
-        public Rules(string ArticleXpath, List<string> XpathToRemove)
-        {
-            _articleXpath = ArticleXpath;
-            _xpathsToRemove = XpathToRemove;
+            // Transform node
+            foreach (var xpathToTransform in XpathsToTransform)
+            {
+                try
+                {
+                    foreach (var nodeToTransform in articleNode.SelectNodes(xpathToTransform.Key))
+                    {
+                        try
+                        {
+                            if (xpathToTransform.Value == "None")
+                            {
+                                nodeToTransform.ParentNode.RemoveChild(nodeToTransform, true);
+                            }
+                            else
+                            {
+                                var newNode = HtmlNode.CreateNode(String.Format("<{0}>{1}</{0}>", xpathToTransform.Value, nodeToTransform.InnerHtml));
+                                nodeToTransform.ParentNode.ReplaceChild(newNode, nodeToTransform);
+                            }
+                        }
+                        catch
+                        {
+                        }
+                    }
+                }
+                catch
+                {
+                }
+            }
+
+            return articleNode;
         }
     }
 }

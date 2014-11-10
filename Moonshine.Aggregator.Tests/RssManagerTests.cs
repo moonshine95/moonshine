@@ -22,7 +22,11 @@ namespace Moonshine.Aggregator.Tests
             xpaths.Add("//div[@class=\"encadre\"]");
             xpaths.Add("//div[@class=\"signature\"]");
 
-            var rules = new Rules("//div[@class=\"contenu_article\"]", xpaths);
+            Dictionary<string, string> xpaths2 = new Dictionary<string, string>();
+            xpaths2.Add("//a", "None");
+            xpaths2.Add("//h2[@class=\"intertitre\"]", "h2");
+
+            var rules = new Rules("//div[@class=\"contenu_article\"]", xpaths, xpaths2);
 
             Logger.Log(feed, "LES ECHOS - Politique", rules);
 

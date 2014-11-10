@@ -22,29 +22,8 @@ namespace Moonshine.Aggregator.News
             HtmlWeb client = new HtmlWeb();
             HtmlDocument htmlDoc = client.Load(url);
             // string xpath = findNewsXPath(rssFeed);
-            var newsHtml = htmlDoc.DocumentNode.SelectSingleNode(rules.ArticleXpath);
-            foreach (var xpath in rules.XpathToRemove)
-            {
-                try
-                {
 
-                    foreach (var node in newsHtml.SelectNodes(xpath))
-                    {
-                        try
-                        {
-                            Console.WriteLine(node.InnerHtml);
-                            node.Remove();
-                        }
-                        catch
-                        {
-                        }
-                    }
-                }
-                catch
-                {
-                }
-            }
-            var newsContent = newsHtml.InnerHtml;
+            var newsContent = rules.ApplyTo(htmlDoc.DocumentNode).InnerHtml;
 
             Image image = null;
             /*
