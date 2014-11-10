@@ -28,7 +28,6 @@ namespace Moonshine.Aggregator.Rss
                 var rssFeed = new RssFeed()
                 {
                     Title = channelElement["title"].InnerText,
-                    Link = new Uri(channelElement["link"].InnerText),
                     Description = channelElement["description"].InnerText,
                     PubDate = new DateTime()
                 };

@@ -15,23 +15,39 @@ namespace Moonshine.Aggregator.News
 {
     public static class NewsManager
     {
-        public static News CreateNews(RssItem rssItem, string xpath)
+        public static News CreateNews(RssItem rssItem, Rules rules)
         {
             var url = rssItem.Link.ToString();
 
             HtmlWeb client = new HtmlWeb();
             HtmlDocument htmlDoc = client.Load(url);
             // string xpath = findNewsXPath(rssFeed);
-            var newsContent = htmlDoc.DocumentNode.SelectSingleNode(xpath).InnerHtml;
+            var newsHtml = htmlDoc.DocumentNode.SelectSingleNode(rules.ArticleXpath);
+            foreach (var xpath in rules.XpathToRemove)
+            {
+                foreach (var node in newsHtml.SelectNodes(xpath))
+                {
+                    try
+                    {
+                        Console.WriteLine(node.InnerHtml);
+                        node.Remove();
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+            var newsContent = newsHtml.InnerHtml;
 
             Image image = null;
+            /*
             if (rssItem.ImageUrl != null)
             {
                 WebClient webClient = new WebClient();
                 byte[] bytes = webClient.DownloadData(rssItem.ImageUrl);
                 MemoryStream stream = new MemoryStream(bytes);
                 image = Image.FromStream(stream);
-            }
+            }*/
 
             var news = new News()
             {
@@ -53,7 +69,8 @@ namespace Moonshine.Aggregator.News
 
         private static string findNewsXPath(RssFeed rssFeed)
         {
-            string source = rssFeed.Link.ToString();
+            return "";
+            /*string source = rssFeed.Link.ToString();
 
             using (var stream = new StreamReader("..//..//..//Moonshine.Aggregator//Resources//NewsXPath.json"))
             {
@@ -71,7 +88,7 @@ namespace Moonshine.Aggregator.News
                 }
             }
 
-            return null;
+            return null;*/
         }
     }
 }

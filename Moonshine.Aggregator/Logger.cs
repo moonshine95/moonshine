@@ -11,17 +11,16 @@ namespace Moonshine.Aggregator
 {
     public static class Logger
     {
-        public static void Log(RssFeed feed, string source, string xpath)
+        public static void Log(RssFeed feed, string source, Rules rules)
         {
             StreamWriter log = new StreamWriter(String.Format("{0}.html", source));
             log.WriteLine("<html>");
-            log.WriteLine("<head><meta charset=\"UTF-8\"></head>");
+            log.WriteLine("<head><meta charset=\"UTF-8\"><script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js\"></script> </head>");
             log.WriteLine("<body>");
             log.WriteLine("<h1> FEED </h1>");
             log.WriteLine("<ul>");
             log.WriteLine("<li><u>{0}</u></li>", feed.Title);
             log.WriteLine("<li><i>{0}</i></li>", feed.Description);
-            log.WriteLine("<li><a href=\"{0}\">{0}</a></li>", feed.Link);
             log.WriteLine("<li>{0}</li>", feed.PubDate);
             log.WriteLine("</ul>");
             foreach (var item in feed.RssItems)
@@ -37,10 +36,11 @@ namespace Moonshine.Aggregator
                 log.WriteLine("</ul>");
                 log.WriteLine(" <blockquote> ");
                 log.WriteLine("<h3> ARTICLE </h3>");
-                var news = NewsManager.CreateNews(item, xpath);
+                var news = NewsManager.CreateNews(item, rules);
                 log.WriteLine("<ul>");
                 log.WriteLine("<li><u>{0}</u></li>", news.Title);
                 log.WriteLine("<li>{0}</li>", news.Category);
+                log.WriteLine("<li style=\"border:1px solid black;padding:1%\"><script type=\"text/plain\" style=\"display: block;\">{0}</script></li>", news.Content);
                 log.WriteLine("<li style=\"border:1px solid black;padding:1%\">{0}</li>", news.Content);
                 log.WriteLine("</ul>");
                 log.WriteLine(" </blockquote> ");
