@@ -5,19 +5,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Moonshine.Aggregator.News
+namespace Moonshine.Aggregator.Rss
 {
     public class Rules
     {
-        private List<string> XpathsToRemove { get; set; }
-        private Dictionary<string, string> XpathsToTransform { get; set; }
-        private string ArticleXpath { get; set; }
+        public List<string> XpathsToRemove { get; set; }
+        public Dictionary<string, string> XpathsToTransform { get; set; }
+        public string ArticleXpath { get; set; }
 
         public Rules(string articleXpath, List<string> xpathToRemove, Dictionary<string, string> xpathsToTransform)
         {
             ArticleXpath = articleXpath;
             XpathsToRemove = xpathToRemove;
             XpathsToTransform = xpathsToTransform;
+        }
+
+        public Rules()
+        {
+
         }
 
         public HtmlNode ApplyTo(HtmlNode node)

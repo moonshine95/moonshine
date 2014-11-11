@@ -48,15 +48,14 @@
     <Compile Include="News\Category.cs" />
     <Compile Include="News\News.cs" />
     <Compile Include="News\NewsManager.cs" />
-    <Compile Include="News\Rules.cs" />
     <Compile Include="Rss\RssFeed.cs" />
     <Compile Include="Rss\RssItem.cs" />
     <Compile Include="Rss\RssManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rss\Rules.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Resources\NewsXPath.json" />
     <None Include="Resources\RssFeeds.json" />
   </ItemGroup>
   <ItemGroup />

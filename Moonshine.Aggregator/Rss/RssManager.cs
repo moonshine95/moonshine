@@ -10,9 +10,9 @@ namespace Moonshine.Aggregator.Rss
 {
     public static class RssManager
     {
-        public static RssFeed Read(Uri uri)
+        public static void Read(RssFeed rssFeed)
         {
-            WebRequest request = WebRequest.Create(uri);
+            WebRequest request = WebRequest.Create(rssFeed.Link);
             WebResponse response = request.GetResponse();
 
             var xmlDoc = new XmlDocument();
@@ -22,15 +22,12 @@ namespace Moonshine.Aggregator.Rss
                 XmlElement channelElement = xmlDoc["rss"]["channel"];
                 if (channelElement == null)
                 {
-                    return null;
+                    return;
                 }
 
-                var rssFeed = new RssFeed()
-                {
-                    Title = channelElement["title"].InnerText,
-                    Description = channelElement["description"].InnerText,
-                    PubDate = new DateTime()
-                };
+                rssFeed.Title = channelElement["title"].InnerText;
+                rssFeed.Description = channelElement["description"].InnerText;
+                rssFeed.PubDate = new DateTime();
 
                 XmlNodeList itemElements = channelElement.GetElementsByTagName("item");
                 foreach (XmlElement item in itemElements)
@@ -57,12 +54,10 @@ namespace Moonshine.Aggregator.Rss
 
                     rssFeed.RssItems.Add(rssItem);
                 }
-
-                return rssFeed;
             }
             catch
             {
-                return null;        
+                return;        
             }
         }
     }

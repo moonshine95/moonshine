@@ -1,7 +1,22 @@
-{
-	[
-		"http://www.lemonde.fr/rss/une.xml",
-		"http://syndication.lesechos.fr/rss/rss_france.xml",
-		"http://syndication.lesechos.fr/rss/rss_politique.xml"
-	]
-}
+[
+	{
+		"Link":"http://syndication.lesechos.fr/rss/rss_france.xml",
+		"Rules":{
+			"XpathsToRemove":[
+				"//div[@class=\"encadre\"]",
+				"//div[@class=\"signature\"]",
+				"//center",
+				"//h5",
+				"//div[@class=\"clear\"]",
+				"//div[@class=\"ART-SIGN\"]"
+			],
+			"XpathsToTransform":{
+				"//a":"None",
+				"//h2[@class=\"intertitre\"]":"h2",
+				"//h2[@class=\"chapeau-article\"]":"h2",
+				"//p[@itemprop=\"articleBody\"]":"p"
+			},
+			"ArticleXpath":"//div[@class=\"contenu_article\"]"
+		}
+	}
+]
