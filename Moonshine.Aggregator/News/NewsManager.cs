@@ -21,20 +21,10 @@ namespace Moonshine.Aggregator.News
 
             HtmlWeb client = new HtmlWeb();
             HtmlDocument htmlDoc = client.Load(url);
-            // string xpath = findNewsXPath(rssFeed);
 
-            var newsContent = rules.ApplyTo(htmlDoc.DocumentNode).InnerHtml;
+            var newsContent = ApplyRules(rules, htmlDoc.DocumentNode).InnerHtml;
 
             Image image = null;
-            /*
-            if (rssItem.ImageUrl != null)
-            {
-                WebClient webClient = new WebClient();
-                byte[] bytes = webClient.DownloadData(rssItem.ImageUrl);
-                MemoryStream stream = new MemoryStream(bytes);
-                image = Image.FromStream(stream);
-            }*/
-
             var news = new News()
             {
                 Title = rssItem.Title,
@@ -44,37 +34,66 @@ namespace Moonshine.Aggregator.News
             };
 
             return news;
-            /*
-            FileStream file = File.Create("output.bin");
-            var formatter = new BinaryFormatter();
-            formatter.Serialize(file, news);
-            file.Close();
-
-            Console.WriteLine(newsContent);*/
         }
 
-        private static string findNewsXPath(RssFeed rssFeed)
+
+        private static HtmlNode ApplyRules(Rules rules, HtmlNode node)
         {
-            return "";
-            /*string source = rssFeed.Link.ToString();
+            // Select article node
+            var articleNode = node.SelectSingleNode(rules.ArticleXpath);
 
-            using (var stream = new StreamReader("..//..//..//Moonshine.Aggregator//Resources//NewsXPath.json"))
+            // Delete node
+            foreach (var xpathToRemove in rules.XpathsToRemove)
             {
-                string json = stream.ReadToEnd();
-
-                var deserializer = new JavaScriptSerializer();
-                Dictionary<string, string> xpaths = deserializer.Deserialize<Dictionary<string, string>>(json);
- 
-                foreach (var xpath in xpaths)
+                try
                 {
-                    if (source.Contains(xpath.Key))
+                    foreach (var nodeToRemove in articleNode.SelectNodes(xpathToRemove))
                     {
-                        return xpath.Value;
+                        try
+                        {
+                            Console.WriteLine(nodeToRemove.InnerHtml);
+                            nodeToRemove.Remove();
+                        }
+                        catch
+                        {
+                        }
                     }
+                }
+                catch
+                {
                 }
             }
 
-            return null;*/
+            // Transform node
+            foreach (var xpathToTransform in rules.XpathsToTransform)
+            {
+                try
+                {
+                    foreach (var nodeToTransform in articleNode.SelectNodes(xpathToTransform.Key))
+                    {
+                        try
+                        {
+                            if (xpathToTransform.Value == "None")
+                            {
+                                nodeToTransform.ParentNode.RemoveChild(nodeToTransform, true);
+                            }
+                            else
+                            {
+                                var newNode = HtmlNode.CreateNode(String.Format("<{0}>{1}</{0}>", xpathToTransform.Value, nodeToTransform.InnerHtml));
+                                nodeToTransform.ParentNode.ReplaceChild(newNode, nodeToTransform);
+                            }
+                        }
+                        catch
+                        {
+                        }
+                    }
+                }
+                catch
+                {
+                }
+            }
+
+            return articleNode;
         }
     }
 }
