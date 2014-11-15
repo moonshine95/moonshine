@@ -8,16 +8,27 @@
     <meta charset="UTF-8">
     <title>AngularJS Binding App</title>
   
-    <link rel="stylesheet" type="text/css" href="/Content/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/Content/css/bootstrap.min.css">
 </head>
 <body>
-    <div ng-controller="newsController" class="form-horizontal">
-        <ul>
-            <li ng-repeat="article in news">
-                <span>{{article.Title}}</span>
-                <span>{{artcile.Category}}</span>
-            </li>
-        </ul>
+    <header>
+        <div class="title">
+            <h1>Le Nouillorque Times</h1>
+        </div>
+    </header>
+    <div class="container">
+        <div class="content">
+            <div ng-controller="newsController" id="container">
+                <div ng-repeat="article in news"  class="item {{article.Category}}">
+                    <div class="box-preamble">
+                        <h3>{{article.Title}}</h3>
+                        <div class="box-preamble-link">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="/Scripts/jquery-1.11.1.min.js" type="text/javascript"></script>

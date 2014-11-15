@@ -12,9 +12,12 @@ namespace Moonshine.MVC.Api
     public class NewsController : ApiController
     {
         // GET api/news
-        public List<News> Get()
+        List<News> news = Aggregator.Aggregator.Aggregate();
+
+        public object Get()
         {
-            return Aggregator.Aggregator.Aggregate();
+            object objForm = new { news };
+            return objForm;
         }
 
         // GET api/news/5
