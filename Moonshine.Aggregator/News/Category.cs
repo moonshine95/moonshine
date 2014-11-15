@@ -10,6 +10,7 @@ namespace Moonshine.Aggregator.News
     {
         Economy,
         Politic,
-        People
+        People,
+        Sport
     }
 }
