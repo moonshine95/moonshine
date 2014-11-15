@@ -22,14 +22,7 @@ namespace Moonshine.Aggregator.News
             HtmlWeb client = new HtmlWeb();
             HtmlDocument htmlDoc = client.Load(url);
 
-            string newsContent = "";
-            try
-            {
-                newsContent = ApplyRules(rules, htmlDoc.DocumentNode).InnerHtml;
-            }
-            catch
-            {
-            }
+            string newsContent = GetNewsContent(rules, htmlDoc.DocumentNode);
 
             var news = new News()
             {
@@ -42,63 +35,71 @@ namespace Moonshine.Aggregator.News
         }
 
 
-        private static HtmlNode ApplyRules(Rules rules, HtmlNode node)
+        private static string GetNewsContent(Rules rules, HtmlNode node)
         {
-            // Select article node
-            var articleNode = node.SelectSingleNode(rules.ArticleXpath);
-
-            // Delete node
-            foreach (var xpathToRemove in rules.XpathsToRemove)
+            foreach (var articleXpath in rules.ArticleXpaths)
             {
                 try
                 {
-                    foreach (var nodeToRemove in articleNode.SelectNodes(xpathToRemove))
-                    {
-                        try
-                        {
-                            Console.WriteLine(nodeToRemove.InnerHtml);
-                            nodeToRemove.Remove();
-                        }
-                        catch
-                        {
-                        }
-                    }
-                }
-                catch
-                {
-                }
-            }
+                    var articleNode = node.SelectSingleNode(articleXpath);
 
-            // Transform node
-            foreach (var xpathToTransform in rules.XpathsToTransform)
-            {
-                try
-                {
-                    foreach (var nodeToTransform in articleNode.SelectNodes(xpathToTransform.Key))
+                    foreach (var xpathToRemove in rules.XpathsToRemove)
                     {
                         try
                         {
-                            if (xpathToTransform.Value == "None")
+                            foreach (var nodeToRemove in articleNode.SelectNodes(xpathToRemove))
                             {
-                                nodeToTransform.ParentNode.RemoveChild(nodeToTransform, true);
-                            }
-                            else
-                            {
-                                var newNode = HtmlNode.CreateNode(String.Format("<{0}>{1}</{0}>", xpathToTransform.Value, nodeToTransform.InnerHtml));
-                                nodeToTransform.ParentNode.ReplaceChild(newNode, nodeToTransform);
+                                try
+                                {
+                                    Console.WriteLine(nodeToRemove.InnerHtml);
+                                    nodeToRemove.Remove();
+                                }
+                                catch
+                                {
+                                }
                             }
                         }
                         catch
                         {
                         }
                     }
+
+                    foreach (var xpathToTransform in rules.XpathsToTransform)
+                    {
+                        try
+                        {
+                            foreach (var nodeToTransform in articleNode.SelectNodes(xpathToTransform.Key))
+                            {
+                                try
+                                {
+                                    if (xpathToTransform.Value == "None")
+                                    {
+                                        nodeToTransform.ParentNode.RemoveChild(nodeToTransform, true);
+                                    }
+                                    else
+                                    {
+                                        var newNode = HtmlNode.CreateNode(String.Format("<{0}>{1}</{0}>", xpathToTransform.Value, nodeToTransform.InnerHtml));
+                                        nodeToTransform.ParentNode.ReplaceChild(newNode, nodeToTransform);
+                                    }
+                                }
+                                catch
+                                {
+                                }
+                            }
+                        }
+                        catch
+                        {
+                        }
+                    }
+
+                    return articleNode.InnerHtml;
                 }
                 catch
                 {
                 }
             }
-
-            return articleNode;
+                return String.Empty;
+            
         }
     }
 }

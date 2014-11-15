@@ -13,7 +13,7 @@ namespace Moonshine.Aggregator
     {
         public static void Log(RssFeed feed)
         {
-            StreamWriter log = new StreamWriter(String.Format("{0}.html", feed.Title));
+            StreamWriter log = new StreamWriter(String.Format("{0}.html", MakeValidFileName(feed.Title)));
             log.WriteLine("<html>");
             log.WriteLine("<head><meta charset=\"UTF-8\"><script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js\"></script> </head>");
             log.WriteLine("<body>");
@@ -50,6 +50,14 @@ namespace Moonshine.Aggregator
             log.WriteLine("</body>");
             log.WriteLine("</html>");
             log.Close();
+        }
+
+        private static string MakeValidFileName(string name)
+        {
+            string invalidChars = System.Text.RegularExpressions.Regex.Escape(new string(System.IO.Path.GetInvalidFileNameChars()));
+            string invalidRegStr = string.Format(@"([{0}]*\.+$)|([{0}]+)", invalidChars);
+
+            return System.Text.RegularExpressions.Regex.Replace(name, invalidRegStr, "_");
         }
     }
 }

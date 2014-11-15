@@ -17,7 +17,47 @@
 				"//h2[@class=\"chapeau-article\"]":"h2",
 				"//p[@itemprop=\"articleBody\"]":"p"
 			},
-			"ArticleXpath":"//div[@class=\"contenu_article\"]"
+			"ArticleXpaths": [
+				"//div[@class=\"contenu_article\"]"
+			]
+		}
+	},
+	{
+		"Link":"http://rss.lemonde.fr/c/205/f/3061/index.rss",
+		"Category" : "Politic",
+		"Rules": {
+			"XpathsToRemove": [ 
+				"//p[@class='bloc_signature']",
+				"//p[@class='lire']",
+				"//p[@class='video_player']",
+				"//*[contains(@class, 'signature')]",
+				"//iframe",
+				"//*[contains(@class, 'navigation')]",
+				"//*[contains(@class, 'comment-respond')]",
+				"//*[contains(@class, 'fb-like')]",
+				"//*[contains(@class, 'wp-socializer')]",
+				"//*[contains(@class, 'entry-utility')]",
+				"//*[contains(@class, 'ligatus_after_post')]",
+				"//*[contains(@class, 'OUTBRAIN')]",
+				"//*[contains(@class, 'post-report-link')]",
+				"//*[@id='comments']",
+				"//*[contains(@id,'plusone')]",
+				"//iframe",
+				"//script",
+				"//*[contains(text(),'>> Lire')]",
+				"//p[contains(text(),'>> Lire')]"
+				
+			],
+			"XpathsToTransform": {
+				"//a":"None",
+				"//blockquote":"None",
+				"//h1":"h2"
+			},
+			"ArticleXpaths":[
+				"//article[contains(@class, 'article')]",
+				"//*[@id='content']",
+				"//section/div[contains(@class, 'grid_12')]"
+			]
 		}
 	},
 	{
@@ -25,11 +65,121 @@
 		"Category" : "People",
 		"Rules":{
 			"XpathsToRemove":[
-				"//iframe"
-			],
+				"//script",
+				"//iframe",
+				"//aside",
+				"//comment()",
+				"//a[@name*=\"infoBulles\"]",
+				"//div[@id=\"filAriane\"]",
+				"//*[contains(@class, 'filAriane')]",
+				"//div[contains(@class, 'picto-media')]",
+				"//span[contains(@class, 'auteur')]",
+				"//div[contains(@class, 'plusieursImages')]",
+				"//div[contains(@class, 'share')]",
+				"//div[contains(@class, 'monActivite')]",
+				"//div[contains(@class, 'reagir-bis')]",
+				"//div[contains(@class, 'link-abo')]",
+				"//div[contains(@class, 'contImg')]",
+				"//*[contains(text(),'VIDEO.')]",
+				"//*[contains(text(),'ZAPPING.')]",
+				"//*[contains(text(),'IMAGES.')]",
+				"//btn_noimpr",
+				"//*[@id='bougezMenuRecherche']",
+				"//*[contains(@class, 'links-concertlive')]",
+				"//*[contains(@class, 'ads')]",
+				"//*[contains(@class, 'pictoDiapo')]",
+				"//*[contains(@class, 'source')]",
+				"//*[contains(@class, 'watlinks')]",
+				"//link",
+				"//em/div"
+				],
 			"XpathsToTransform":{
+				"//a":"None",
+				"//blockquote":"em",
+				"//h2":"p",
+				"//h1":"h2",
+				"//*[contains(@class, 'diapoArticle')]":"div",
+				"//ul[contains(@class, 'items')]":"ul",
+				"//span[@style]":"span"
 			},
-			"ArticleXpath":"//article[contains(@class, 'article-une')]"
+			"ArticleXpaths":[
+				"//div[contains(@class,'corpArticle')]",
+				"//article[contains(@class,'article-une')]"
+			]
+		}
+	},
+	{
+		"Link":"http://rss.nouvelobs.com/c/32262/fe.ed/tempsreel.nouvelobs.com/politique/rss.xml",
+		"Category" : "Politic",
+		"Rules": {
+			"XpathsToRemove": [ 
+				"//*[contains(@class, 'info-art')]",
+				"//*[contains(@class, 'top-outils')]",
+				"//*[contains(@class, 'inside-art')]",
+				"//*[contains(@class, 'lire')]",
+				"//p/strong",
+				"//*[contains(@class, 'magpromo-bloc')]",
+				"//iframe"
+				
+			],
+			"XpathsToTransform": {
+				"//a":"None",
+				"//blockquote":"None",
+				"//h1":"h2",
+				"//*[contains(@class, 'obs-legend')]":"div",
+				"//h5":"p"
+			},
+			"ArticleXpaths":[
+				"//article"
+			]
+		}
+	},
+	{
+		"Link":"http://rss.challenges.fr/c/32261/fe.ed/www.challenges.fr/economie/rss.xml",
+		"Category" : "Economy",
+		"Rules": {
+			"XpathsToRemove": [ 
+				"//*[contains(@class, 'info-art')]",
+				"//*[contains(@class, 'top-outils')]",
+				"//*[contains(@class, 'inside-art')]",
+				"//*[contains(@class, 'lire')]",
+				"//p/strong",
+				"//*[contains(@class, 'magpromo-bloc')]",
+				"//iframe"
+				
+			],
+			"XpathsToTransform": {
+				"//a":"None",
+				"//blockquote":"None",
+				"//h1":"h2",
+				"//*[contains(@class, 'obs-legend')]":"div",
+				"//h5":"p"
+			},
+			"ArticleXpaths":[
+				"//article"
+			]
+		}
+	},
+	{
+		"Link": "http://www.lequipe.fr/rss/actu_rss.xml",
+		"Category" : "Sport",
+		"Rules": {
+			"XpathsToRemove":[
+				"//div[contains(@class, 'partageons')]",
+				"//div[contains(@class, 'bloctype1')]",
+				"//div[contains(@style, 'padding:8px')]",
+				"//div[contains(@data-boourl, 'audioboom.com')]",
+				"//iframe[contains(@src, 'youtube')]",
+				"//iframe[contains(@src, 'twitter')]"		
+			],
+			"XpathsToTransform": {
+				"//a":"None",
+				"//blockquote":"None",
+				"//div[contains(@id, 'breve')]":"meta"
+			},
+			"ArticleXpaths":[
+				"//article"
+			]
 		}
 	}
 ]

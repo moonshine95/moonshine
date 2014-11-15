@@ -11,11 +11,11 @@ namespace Moonshine.Aggregator.Rss
     {
         public List<string> XpathsToRemove { get; set; }
         public Dictionary<string, string> XpathsToTransform { get; set; }
-        public string ArticleXpath { get; set; }
+        public List<string> ArticleXpaths { get; set; }
 
-        public Rules(string articleXpath, List<string> xpathToRemove, Dictionary<string, string> xpathsToTransform)
+        public Rules(List<string> articleXpaths, List<string> xpathToRemove, Dictionary<string, string> xpathsToTransform)
         {
-            ArticleXpath = articleXpath;
+            ArticleXpaths = articleXpaths;
             XpathsToRemove = xpathToRemove;
             XpathsToTransform = xpathsToTransform;
         }
