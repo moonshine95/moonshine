@@ -22,15 +22,20 @@ namespace Moonshine.Aggregator.News
             HtmlWeb client = new HtmlWeb();
             HtmlDocument htmlDoc = client.Load(url);
 
-            var newsContent = ApplyRules(rules, htmlDoc.DocumentNode).InnerHtml;
+            string newsContent = "";
+            try
+            {
+                newsContent = ApplyRules(rules, htmlDoc.DocumentNode).InnerHtml;
+            }
+            catch
+            {
+            }
 
-            Image image = null;
             var news = new News()
             {
                 Title = rssItem.Title,
                 Content = newsContent,
-                Category = Category.Economy,
-                Image = image
+                Category = rssItem.Category,
             };
 
             return news;

@@ -46,6 +46,7 @@ namespace Moonshine.Aggregator.Rss
                     var rssItem = new RssItem()
                     {
                         Title = item["title"].InnerText,
+                        Category = rssFeed.Category,
                         Link = new Uri(item["link"].InnerText),
                         Description = item["description"].InnerText,
                         PubDate = new DateTime(),

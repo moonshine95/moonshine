@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Moonshine.Aggregator.News;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace Moonshine.Aggregator.Rss
     {
         public string Title { get; set; }
         public Uri Link { get; set; }
+        public Category Category { get; set; }
         public string Description { get; set; }
         public DateTime PubDate { get; set; }
         public Uri ImageUrl { get; set; } 

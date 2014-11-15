@@ -9,6 +9,7 @@ namespace Moonshine.Aggregator.News
     public enum Category
     {
         Economy,
-        Politic
+        Politic,
+        People
     }
 }
