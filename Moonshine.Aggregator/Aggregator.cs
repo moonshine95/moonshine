@@ -24,14 +24,19 @@ namespace Moonshine.Aggregator
                 var deserializer = new JavaScriptSerializer();
                 var rssFeeds = deserializer.Deserialize<List<RssFeed>>(json);
 
-                foreach (var feed in rssFeeds)
+                var lockMe = new object();
+                Parallel.ForEach(rssFeeds, feed =>
                 {
                     RssManager.Read(feed);
-                    foreach (var item in feed.RssItems)
+                    Parallel.ForEach(feed.RssItems, item =>
                     {
-                        news.Add(NewsManager.CreateNews(item, feed.Rules));
-                    }
-                }
+                        var _news = NewsManager.CreateNews(item, feed.Rules);
+                        lock (lockMe)
+                        {
+                            news.Add(_news);
+                        }
+                    });
+                });
             }
 
             return news;
