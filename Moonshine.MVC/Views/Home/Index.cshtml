@@ -1,5 +1,28 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    Layout = null;
 }
 
-<h2>Index</h2>
+<!DOCTYPE html>
+<html ng-app="newsApp" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS Binding App</title>
+  
+    <link rel="stylesheet" type="text/css" href="/Content/bootstrap.min.css">
+</head>
+<body>
+    <div ng-controller="newsController" class="form-horizontal">
+        <ul>
+            <li ng-repeat="article in news">
+                <span>{{article.Title}}</span>
+                <span>{{artcile.Category}}</span>
+            </li>
+        </ul>
+    </div>
+
+    <script src="/Scripts/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="/Scripts/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/Scripts/angular.js" type="text/javascript"></script>
+    <script src="/Scripts/angularNewsController.js" type="text/javascript"></script>
+</body>
+</html>
