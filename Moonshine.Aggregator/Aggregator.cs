@@ -95,6 +95,12 @@ namespace Moonshine.Aggregator
 
             }
 
+            File.Delete(HttpContext.Current.Server.MapPath("~/App_Data/data.json"));
+            StreamWriter data = new StreamWriter(HttpContext.Current.Server.MapPath("~/App_Data/data.json"));
+            var serializer = new JavaScriptSerializer();
+            data.WriteLine(serializer.Serialize(news));
+            data.Close();
+
             return news;
         }
     }

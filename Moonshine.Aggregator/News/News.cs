@@ -12,6 +12,7 @@ namespace Moonshine.Aggregator.News
         public string Title { get; set; }
         public string Content { get; set; }
         public Category Category { get; set; }
+        public string Image { get; set; }
 
         public News()
         {

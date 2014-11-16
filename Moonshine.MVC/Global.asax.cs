@@ -19,6 +19,8 @@ namespace Moonshine.MVC
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            Aggregator.Aggregator.Aggregate();
         }
     }
 }

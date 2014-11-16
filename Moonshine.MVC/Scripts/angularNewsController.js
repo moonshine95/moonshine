@@ -19,13 +19,6 @@ newsApp.controller("newsController", function ($scope, newsFactory) {
         $scope.message = "News Data Submitted"
     }
 
-    $scope.onEnd = function () {
-        setTimeout(function () {
-            callback();
-            alert('all done');
-        }, 1);
-    };
-
     $scope.appliedClass = function (myObjProperty) {
         if (myObjProperty == 0) {
             return "Economy";
@@ -43,23 +36,24 @@ newsApp.controller("newsController", function ($scope, newsFactory) {
 
 })
 
+
 newsApp.directive("repeatEnd", function () {
     return {
         restrict: "A",
         link: function (scope, element, attrs) {
             if (scope.$last) {
-                scope.$eval(attrs.repeatEnd);
+                callback()
             }
         }
     };
 });
 
 function callback() {
-    console.log('hello');
     $('h3.ng-binding').on('click', function () {
         var $article = $(this).parent().parent().parent();
-        var content = '<h2>' + $article.attr('data-title') + '</h2>'
-        + '<p>' + $article.attr('data-content') + '</p>'
+
+        var content = $article.attr('data-content');
+        $("#myModalLabel").html($article.attr('data-title'));
         $("#myModalContent").html(content);
         $("#myModal").modal('show');
     });

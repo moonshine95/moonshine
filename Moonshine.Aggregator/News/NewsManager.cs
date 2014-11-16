@@ -24,11 +24,17 @@ namespace Moonshine.Aggregator.News
 
             string newsContent = GetNewsContent(rules, htmlDoc.DocumentNode);
 
+            var imageUrl = "";
+            if(rssItem.ImageUrl != null)
+            {
+                imageUrl = rssItem.ImageUrl.AbsoluteUri;
+            }
             var news = new News()
             {
                 Title = rssItem.Title,
                 Content = newsContent,
                 Category = rssItem.Category,
+                Image = imageUrl
             };
 
             return news;
