@@ -19,13 +19,11 @@
     </header>
     <div class="container">
         <div ng-controller="newsController" class="content">
-            <a ng-repeat="article in news" class="item" ng-class={{article.Category}} data-toogle="modal" data-target="#myModal" role="button" data-title={{artcile.Title}} data-content={{article.Content}}>
+            <a ng-repeat="article in news" repeat-end="onEnd()" data-id={{article.Id}} class="item" ng-class="appliedClass({{article.Category}})" data-toogle="modal" data-target="#myModal" role="button" data-title={{article.Title}} data-content={{article.Content}}>
                 <div>
                     <div class="box-preamble">
                         <h3>{{article.Title}}</h3>
-                        <div class="box-preamble-link">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                        </div>
+                        <span class="glyphicon glyphicon-chevron-right"></span>
                     </div>
                 </div>
             </a>
@@ -96,21 +94,6 @@
     <!-- <script src="/Scripts/isotope.pkgd.min.js" type="text/javascript"></script> -->
     <!-- <script src="/Scripts/angular-isotope.min.js" type="text/javascript"></script> -->
     <!-- <script src="/Scripts/isotope-init.js" type="text/javascript"></script> -->
-    <script>
-        $(document).ready(function () {
-            $('a[data-toggle=modal], button[data-toggle=modal]').click(function () {
-                var data_title = '';
-                var data_content = '';
-                if (typeof $(this).data('title') !== 'undefined' && typeof $(this).data('content') !== 'undefined') {
-                data_title = $(this).data('title');
-                data_content = $(this).data('content');
-                }
-                $(".modal-body #id").val(data_id);
-                $(".modal-header #myModalLabel").html(data_title);
-                $(".modal-body #myModalContent").html(data_content);
-                $("#myModal").modal('show');
-            })
-        });
-    </script>
+
 </body>
 </html>

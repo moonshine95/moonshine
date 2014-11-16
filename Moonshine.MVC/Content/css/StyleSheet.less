@@ -145,161 +145,97 @@ header {
         column-count: 3;
         column-gap: 10px;
     }
-
     width: 95%;
     .item {
-      margin-bottom: 10px;
-      text-align: center;
-      display: inline-block;
-      min-width: 100%;
-      .box-preamble {
+        margin-bottom: 10px;
+        text-align: center;
+        display: inline-block;
+        min-width: 100%;
+        .box-preamble {
         display: block;
         padding-top: 15px;
         padding-bottom: 15px;
         .glyphicon {
-          width: 100%;
-          padding-bottom: 10px;
-          -webkit-transition: color 1s ease-in-out;
-          -moz-transition: color 1s ease-in-out;
-          -o-transition: color 1s ease-in-out;
-          -ms-transition: color 1s ease-in-out;
-          transition: color 1s ease-in-out;
+            width: 100%;
+            padding-bottom: 10px;
+            -webkit-transition: color 1s ease-in-out;
+            -moz-transition: color 1s ease-in-out;
+            -o-transition: color 1s ease-in-out;
+            -ms-transition: color 1s ease-in-out;
+            transition: color 1s ease-in-out;
         }
-      }
-      &.Politic {
+        }
+        &.Politic {
         border: 1px solid @color-red;
         .box-preamble {
-          background-color: @color-red;
-          color: @color-white;
-          -webkit-transition: all 1s ease-in-out;
-          -moz-transition: all 1s ease-in-out;
-          -o-transition: all 1s ease-in-out;
-          -ms-transition: all  1s ease-in-out;
-          transition: all 1s ease-in-out;
+            background-color: @color-red;
+            color: @color-white;
+            -webkit-transition: all 1s ease-in-out;
+            -moz-transition: all 1s ease-in-out;
+            -o-transition: all 1s ease-in-out;
+            -ms-transition: all  1s ease-in-out;
+            transition: all 1s ease-in-out;
         }
         &:hover {
-          .box-preamble {
+            .box-preamble {
             background-color: @color-white;
             color: @color-red;
-          }
+            }
         }
-      }
-      &.Economy {
+        }
+        &.Economy {
         border: 1px solid @color-yellow;
         .box-preamble {
-          background-color: @color-yellow;
-          color: @color-white;
-          -webkit-transition: background-color 1s ease-in-out;
-          -moz-transition: background-color 1s ease-in-out;
-          -o-transition: background-color 1s ease-in-out;
-          -ms-transition: background-color  1s ease-in-out;
-          transition: background-color 1s ease-in-out;
+            background-color: @color-yellow;
+            color: @color-white;
+            -webkit-transition: background-color 1s ease-in-out;
+            -moz-transition: background-color 1s ease-in-out;
+            -o-transition: background-color 1s ease-in-out;
+            -ms-transition: background-color  1s ease-in-out;
+            transition: background-color 1s ease-in-out;
         }
         &:hover {
-          .box-preamble {
+            .box-preamble {
             background-color: @color-white;
             color: @color-yellow;
-          }
+            }
         }
-      }
-      /*&.international {
-        border: 1px solid @color-green;
-        .box-preamble {
-          background-color: @color-green;
-          color: @color-white;
-          -webkit-transition: background-color 1s ease-in-out;
-          -moz-transition: background-color 1s ease-in-out;
-          -o-transition: background-color 1s ease-in-out;
-          -ms-transition: background-color  1s ease-in-out;
-          transition: background-color 1s ease-in-out;
-        }
-        &:hover {
-          .box-preamble {
-            background-color: @color-white;
-            color: @color-green;
-          }
-          img {
-            -moz-filter: grayscale(80%);
-            -webkit-filter: grayscale(80%);
-            filter: grayscale(80%);
-          }
-        }
-      }*/
-      &.Sport {
+        } 
+        &.Sport {
         border: 1px solid @color-medium-blue;
         .box-preamble {
-          background-color: @color-medium-blue;
-          color: @color-white;
-          -webkit-transition: background-color 1s ease-in-out;
-          -moz-transition: background-color 1s ease-in-out;
-          -o-transition: background-color 1s ease-in-out;
-          -ms-transition: background-color  1s ease-in-out;
-          transition: background-color 1s ease-in-out;
+            background-color: @color-medium-blue;
+            color: @color-white;
+            -webkit-transition: background-color 1s ease-in-out;
+            -moz-transition: background-color 1s ease-in-out;
+            -o-transition: background-color 1s ease-in-out;
+            -ms-transition: background-color  1s ease-in-out;
+            transition: background-color 1s ease-in-out;
         }
         &:hover {
-          .box-preamble {
+            .box-preamble {
             background-color: @color-white;
             color: @color-medium-blue;
-          }
+            }
         }
-      }
-      /*&.horoscope {
-        border: 1px solid @color-purple;
+        }
+        &.People {
+        border: 1px solid @color-green;
         .box-preamble {
-          background-color: @color-purple;
-          color: @color-white;
-          -webkit-transition: background-color 1s ease-in-out;
-          -moz-transition: background-color 1s ease-in-out;
-          -o-transition: background-color 1s ease-in-out;
-          -ms-transition: background-color  1s ease-in-out;
-          transition: background-color 1s ease-in-out;
+            background-color: @color-green;
+            color: @color-white;
+            -webkit-transition: background-color 1s ease-in-out;
+            -moz-transition: background-color 1s ease-in-out;
+            -o-transition: background-color 1s ease-in-out;
+            -ms-transition: background-color  1s ease-in-out;
+            transition: background-color 1s ease-in-out;
         }
         &:hover {
-          .box-preamble {
+            .box-preamble {
             background-color: @color-white;
-            color: @color-purple;
-          }
-          img {
-            -moz-filter: grayscale(80%);
-            -webkit-filter: grayscale(80%);
-            filter: grayscale(80%);
-          }
+            color: @color-green;
+            }
         }
-      }
-      &.jeux {
-        border: 1px solid @color-dark-blue;
-        .box-preamble {
-          background-color: @color-dark-blue;
-          color: @color-white;
-          -webkit-transition: background-color 1s ease-in-out;
-          -moz-transition: background-color 1s ease-in-out;
-          -o-transition: background-color 1s ease-in-out;
-          -ms-transition: background-color  1s ease-in-out;
-          transition: background-color 1s ease-in-out;
         }
-        &:hover {
-          .box-preamble {
-            background-color: @color-white;
-            color: @color-dark-blue;
-          }
-          img {
-            -moz-filter: grayscale(80%);
-            -webkit-filter: grayscale(80%);
-            filter: grayscale(80%);
-          }
-        }
-      }
-      img {
-        max-width: 100%;
-        -moz-filter: grayscale(0%);
-        -webkit-filter: grayscale(0%);
-        filter: grayscale(0%);
-
-        -webkit-transition: all 1s ease-in-out;
-        -moz-transition: all 1s ease-in-out;
-        -o-transition: all 1s ease-in-out;
-        -ms-transition: all 1s ease-in-out;
-        transition: all 1s ease-in-out;
-      }*/
     }
 }
