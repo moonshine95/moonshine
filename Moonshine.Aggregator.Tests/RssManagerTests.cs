@@ -24,52 +24,62 @@ namespace Moonshine.Aggregator.Tests
                 var deserializer = new JavaScriptSerializer();
                 var rssFeeds = deserializer.Deserialize<List<RssFeed>>(json);
 
+                var _list = new List<RssFeed>();
                 foreach (var feed in rssFeeds)
                 {
                     RssManager.Read(feed);
-                    myFeed = feed;
-                    break;
+                    _list.Add(feed);
+                    //myFeed = feed;
+                    //break;
                 }
 
+                // CREATION D'UN CORPUS GRACE A UNE LISTE DE RSS FEED
+                Corpus corpus = new Corpus(_list);
 
-                Corpus corpus = new Corpus(new List<RssFeed> { myFeed });
-
+                // DEFINITION DES TOP KEYWORDS DU CORPUS
                 string[] topKeywords = {};
+                int id = 0;
                 foreach (var doc in corpus.Documents)
                 {
+                    //Console.WriteLine(" === " + id + " === ");
+                   // Console.WriteLine(string.Join(" ", doc.Content));
+                    id++;
                     topKeywords = topKeywords.Concat(Helpers.TopKeywords(4, doc, corpus)).ToArray();
                 }
                 topKeywords = topKeywords.Distinct().ToArray();
 
-                foreach (var vec in Helpers.FeatureVectors(topKeywords, corpus))
-                {
-                    //Console.WriteLine("===VECTOR===");
-                    foreach (var elt in vec)
-                    {
-                       // Console.WriteLine(elt);
-                    }
-                }
+                // CREATION DES FEATURES VECTORS
+                List<double[]> vectors = Helpers.FeatureVectors(topKeywords, corpus);
 
-                List<List<double>> mat = new List<List<double>>();
-                var vectors = Helpers.FeatureVectors(topKeywords, corpus);
+                // CREATION DE LA MATRICE DE SIMILARITE
+                List<double[]> matrix = new List<double[]>();
                 for (int i = 0; i < corpus.Documents.Count; i++)
                 {
-                    List<double> _mat = new List<double>();
+                    double[] vector = {};
                     for (int j = 0; j < corpus.Documents.Count; j++)
                     {
                         //Console.WriteLine(Helpers.CosineSimilarity(vectors.ElementAt(i).ToList(), vectors.ElementAt(j).ToList()));
-                        _mat.Add(Helpers.CosineSimilarity(vectors.ElementAt(i).ToList(), vectors.ElementAt(j).ToList()));
+                        var value = Helpers.CosineSimilarity(vectors.ElementAt(i).ToList(), vectors.ElementAt(j).ToList());
+                        vector = vector.Concat(new List<double> { value }).ToArray();
+                        //_mat.Add(Helpers.CosineSimilarity(vectors.ElementAt(i).ToList(), vectors.ElementAt(j).ToList()));
                     }
-                    mat.Add(_mat);
+                    matrix.Add(vector);
+                }
+                
+                var clusters = Helpers.Linkage(matrix, (double)1);
+                foreach (var cluster in clusters)
+                {
+                    var ids = cluster.Value;
+                    Console.WriteLine("======");
+                    for (int h = 0; h < corpus.Documents.Count; h++)
+                    {
+                        if (ids.Contains(h))
+                        {
+                            Console.WriteLine(string.Join(" ", corpus.Documents[h].Content));
+                        }
+                    }
                 }
 
-                var dict = Helpers.Linkage(mat);
-                foreach (var elt in dict)
-                {
-                    Console.WriteLine("=====");
-                    Console.WriteLine(string.Join(" ", corpus.Documents.ElementAt(elt.Key[0]).Content));
-                    Console.WriteLine(string.Join(" ", corpus.Documents.ElementAt(elt.Key[1]).Content));
-                }
 
             }
             

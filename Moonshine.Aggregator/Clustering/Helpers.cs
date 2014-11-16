@@ -134,20 +134,68 @@ namespace Moonshine.Aggregator.Clustering
             return Math.Sqrt(dist);
         }
 
-        public static Dictionary<List<int>, double> Linkage(List<List<double>> matrix)
+        public static Dictionary<int, List<int>> Linkage(List<double[]> matrix, double threshold)
         {
-            var dict = new Dictionary<List<int>, double>();
-            for (int i = 0; i < matrix.Count; i++)
+            int id = 0;
+            var clusters = new List<Cluster>();
+            foreach (var vector in matrix)
             {
-                for (int j = 0; j < matrix.Count; j++)
+                clusters.Add(new Cluster(vector, id));
+                id++;
+            }
+
+            var temp = new Dictionary<int, List<int>>();
+            while (clusters.Count != 1)
+            {
+                Cluster clusterA = null;
+                Cluster clusterB = null;
+                double distMin = 1000;
+                for (int i = 0; i < clusters.Count; i++)
                 {
-                    dict.Add(new List<int> { i, j }, EuclideanDistance(matrix.ElementAt(i).ToArray(), matrix.ElementAt(j).ToArray()));
+                    for (int j = 0; j < i + 1; j++)
+                    {
+                        if (i != j)
+                        {
+                            double dist = clusters.ElementAt(i).DistanceTo(clusters.ElementAt(j));
+                            if (dist < distMin)
+                            {
+                                clusterA = clusters.ElementAt(i);
+                                clusterB = clusters.ElementAt(j);
+                                distMin = dist;
+                            }
+                        }
+                    }
+                }
+                if (clusterA != null & clusterB != null)
+                {
+                    //Console.WriteLine("dist : " + distMin + " / idA : " + clusterA.Id + " / idB : " + clusterB.Id  );
+                    var _clust = new Cluster(clusterA, clusterB, distMin);
+                    clusters.Add(_clust);
+                    if (distMin < threshold)
+                    {
+                        if (clusterB.Id > 0 && clusterA.Id > 0)
+                        {
+                            temp.Add(_clust.Id, new List<int> { clusterA.Id, clusterB.Id });
+                        }
+                        if (clusterA.Id < 0)
+                        {
+                            var _list = temp[clusterA.Id];
+                            _list.Add(clusterB.Id);
+                            temp[clusterA.Id] = _list;
+                        }
+                        if (clusterB.Id < 0)
+                        {
+                            var _list = temp[clusterB.Id];
+                            _list.Add(clusterA.Id);
+                            temp[clusterB.Id] = _list;
+                        }
+                    }
+                    clusters.Remove(clusterA);
+                    clusters.Remove(clusterB);
                 }
             }
 
-            return dict.OrderByDescending(entry => entry.Value)
-                            .Reverse()
-                            .ToDictionary(pair => pair.Key, pair => pair.Value);
+            return temp;
         }
     }
 }

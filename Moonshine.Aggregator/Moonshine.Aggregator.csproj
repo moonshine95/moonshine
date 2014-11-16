@@ -70,10 +70,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aggregator.cs" />
+    <Compile Include="Clustering\Cluster.cs" />
     <Compile Include="Clustering\Corpus.cs" />
     <Compile Include="Clustering\Document.cs" />
     <Compile Include="Clustering\Helpers.cs" />
-    <Compile Include="Clustering\Matrix.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="News\Category.cs" />
     <Compile Include="News\News.cs" />
