@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Moonshine.Aggregator.News;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,5 +17,11 @@ namespace Moonshine.MVC.Controllers
             return View();
         }
 
+        [System.Web.Http.HttpPost]
+        public ActionResult Article(String title)
+        {
+            ViewBag.Title = title;
+            return View();
+        }
     }
 }

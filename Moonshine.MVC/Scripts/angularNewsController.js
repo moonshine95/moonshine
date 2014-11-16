@@ -19,3 +19,4 @@ newsApp.controller("newsController", function ($scope, newsFactory) {
         $scope.message = "News Data Submitted"
     }
 })
+
