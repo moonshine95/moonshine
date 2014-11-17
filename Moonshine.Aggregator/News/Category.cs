@@ -11,6 +11,10 @@ namespace Moonshine.Aggregator.News
         Economy,
         Politic,
         People,
-        Sport
+        Sport,
+        Culture,
+        Science,
+        Technologies,
+        World
     }
 }
