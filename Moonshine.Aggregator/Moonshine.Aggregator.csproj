@@ -74,7 +74,6 @@
     <Compile Include="Clustering\Corpus.cs" />
     <Compile Include="Clustering\Document.cs" />
     <Compile Include="Clustering\Helpers.cs" />
-    <Compile Include="Logger.cs" />
     <Compile Include="News\Category.cs" />
     <Compile Include="News\News.cs" />
     <Compile Include="News\NewsManager.cs" />
