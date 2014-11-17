@@ -5,7 +5,7 @@
 <html ng-app="newsApp" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>AngularJS Binding App</title>
+    <title>Le Nouillorque Times</title>
   
     <link rel="stylesheet" type="text/css" href="/Content/css/bootstrap.min.css">
     <link rel="stylesheet/less" type="text/css" href="/Content/css/StyleSheet.less">
@@ -15,19 +15,14 @@
         <div class="title">
             <h1>Le Nouillorque Times</h1>
             <div id="input">
-                <input type="text" class="form-control" id="usr">
+                <input ng-model="query" type="text" class="form-control" id="usr">
                 <span class="glyphicon glyphicon-search"></span>
             </div>
         </div>
     </header>
     <div class="container">
         <div class="content">
-            Search: <input ng-model="query">
-            <select ng-model="query2">
-                <option value="queryChange(3)">Politic</option>
-                <option value="queryChange(2)">Economy</option>
-            </select>
-            <div ng-repeat="article in news | filter:filters" repeat-end="onEnd()" data-id={{article.Id}} class="item" ng-class="appliedClass({{article.Category}})" data-toogle="modal" data-target="#myModal" role="button" data-title={{article.Title}} data-content={{article.Content}}>
+            <div ng-repeat="article in news | filter:filters | filter:query" repeat-end="onEnd()" data-id={{article.Id}} class="item" ng-class="appliedClass({{article.Category}})" data-toogle="modal" data-target="#myModal" role="button" data-title={{article.Title}} data-content={{article.Content}}>
                 <div>
                     <div class="box-preamble">
                         <h3>{{article.Title}}</h3>

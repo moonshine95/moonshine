@@ -147,7 +147,6 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\less\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -174,7 +173,7 @@
     <Content Include="Content\css\StyleSheet.less" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Article.cshtml" />
+    <Content Include="Content\fonts\Bitter-Regular.otf" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

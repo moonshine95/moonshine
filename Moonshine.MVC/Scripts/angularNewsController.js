@@ -60,25 +60,24 @@ newsApp.directive("repeatEnd", function () {
 });
 
 function callback() {
-    $('h3.ng-binding').on('click', function () {
-        var $article = $(this).parent().parent().parent();
-
+    $('.item').on('click', function () {
+        var $article = $(this);
         var content = $article.attr('data-content');
         console.log(content);
 
         // get couleur
         $("#myModalLabel").html($article.attr('data-title'));
-        $("#myModalContent").append(content)
+        $("#myModalContent").html(content)
         $('#image').width($('#image').height()).attr('href', $article.attr('data-Image'));
         $('#myModalContent>h1').removeAttr('style');
         $('#myModalContent>h2').removeAttr('style');
         $('#myModalContent>p').removeAttr('style');
-        $('aside').replaceWith($('<p>' + this.innerHTML + '</p>'));
-        $('#myModalContent>h2').replaceWith($('<h3>' + this.innerHTML + '</h3>'));
-        $('a#myModalContent>h3').replaceWith($('<h3>' + this.innerHTML + '</h3>'));
-        $('a#myModalContent>h4').replaceWith($('<h3>' + this.innerHTML + '</h3>'));
+        $('p>strong').remove();
 
-
+        $('#image').hide();
+        if ($article.attr('data-Image') !== "") {
+            $('#image').width($('#image').height()).attr('href', $article.attr('data-Image')).show();
+        }
 
         $('#description').html($article.attr('data-description'));
         $("#myModal").modal('show');
